@@ -43,26 +43,26 @@ export default function Home() {
       const safe = (val: number) => isNaN(val) ? 0 : val;
 
       if (systemType === 'first') { 
-        url = 'http://localhost:8000/simulate/first-order'; 
+        url = 'https://autolab-api.onrender.com/simulate/first-order'; 
         payload = { K: safe(gain), tau: safe(tau), duration: safe(duration) }; 
       }
       else if (systemType === 'second') { 
-        url = 'http://localhost:8000/simulate/second-order'; 
+        url = 'https://autolab-api.onrender.com/simulate/second-order'; 
         payload = { K: safe(gain), omega_n: safe(omega), zeta: safe(zeta), duration: safe(duration) }; 
       }
       else if (systemType === 'general') {
-        url = 'http://localhost:8000/simulate/general';
+        url = 'https://autolab-api.onrender.com/simulate/general';
         const numArr = numStr.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
         const denArr = denStr.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
         if (numArr.length === 0 || denArr.length === 0) { alert("Coefficients invalides"); setLoading(false); return; }
         payload = { num: numArr, den: denArr, duration: safe(duration) };
       }
       else if (systemType === 'pid') { 
-        url = 'http://localhost:8000/simulate/pid'; 
+        url = 'https://autolab-api.onrender.com/simulate/pid'; 
         payload = { process_K: safe(gain), process_tau: safe(tau), Kp: safe(kp), Ki: safe(ki), Kd: safe(kd), duration: safe(duration), dist_time: safe(distTime), dist_amp: safe(distAmp) }; 
       }
       else { 
-        url = 'http://localhost:8000/simulate/frequency'; 
+        url = 'https://autolab-api.onrender.com/simulate/frequency'; 
         payload = { K: safe(gain), omega_n: safe(omega), zeta: safe(zeta) }; 
       }
 
