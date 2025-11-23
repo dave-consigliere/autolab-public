@@ -7,7 +7,8 @@ import { Scatter } from 'react-chartjs-2';
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, Title);
 
 export default function BlackChart({ phase, magnitude }: { phase: number[], magnitude: number[] }) {
-  const chartRef = useRef<ChartJS>(null);
+  // CORRECTION ICI : On précise que c'est un Chart de type "scatter"
+  const chartRef = useRef<ChartJS<"scatter">>(null);
 
   const handleDownload = useCallback(() => {
     const chart = chartRef.current;
@@ -24,7 +25,7 @@ export default function BlackChart({ phase, magnitude }: { phase: number[], magn
     datasets: [{
       label: 'Lieu de Black',
       data: phase.map((p, i) => ({ x: p, y: magnitude[i] })),
-      borderColor: 'rgb(147, 51, 234)', // Violet
+      borderColor: 'rgb(147, 51, 234)',
       backgroundColor: 'transparent',
       borderWidth: 2,
       showLine: true,
@@ -36,7 +37,7 @@ export default function BlackChart({ phase, magnitude }: { phase: number[], magn
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      x: { title: { display: true, text: 'Phase (°)' }, grid: { color: '#e5e7eb' }, max: 0, min: -270 }, // Zoom sur la zone utile
+      x: { title: { display: true, text: 'Phase (°)' }, grid: { color: '#e5e7eb' }, max: 0, min: -270 },
       y: { title: { display: true, text: 'Gain (dB)' }, grid: { color: '#e5e7eb' } },
     },
     plugins: { title: { display: true, text: 'Diagramme de Black-Nichols' } }
